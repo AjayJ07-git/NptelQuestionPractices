@@ -90,6 +90,75 @@ const week1Questions = [
     }
 ];
 
+// Video Notes Data - Week 1
+const week1VideoNotes = [
+    {
+        id: 1,
+        title: "Lecture 1: Introduction to Mathematics for Economics",
+        duration: "45 minutes",
+        keyPoints: [
+            "The course Mathematics for Economics Part 1 is aimed at undergraduate students from engineering, science, economics, and other disciplines, focusing only on mathematical tools relevant to economics.",
+            "It helps science and engineering students who are already familiar with calculus and linear algebra understand how these tools are applied in economics, starting from scratch without assuming any economics background.",
+            "Students of economics, both honors and general, as well as social science students interested in economics, will benefit from the course's integration of mathematical tools and economic concepts.",
+            "The syllabus is based on the UGC model syllabus for undergraduate economics programs, slightly adjusted to remain consistent with Indian university standards and includes twelve carefully selected core topics.",
+            "These twelve topics form the base for understanding the mathematical structure behind economic models and are designed to prepare students for more advanced courses in mathematical economics."
+        ]
+    },
+    {
+        id: 2,
+        title: "Lecture 2: Mathematical Foundations & Logic",
+        duration: "42 minutes",
+        keyPoints: [
+            "Topics begin with fundamentals like the real number system, logic, and mathematical proof, which form the foundation for later concepts and are necessary to understand how math functions structurally.",
+            "Sets and set operations are introduced to establish the language and structure for handling mathematical objects, particularly for use in economic modeling.",
+            "Mathematics uses symbols for logical constants (fixed values like π or intervals) and variables (which vary across domains), which form the language for writing compact mathematical relationships.",
+            "Example: (x+2)²=x²+4x+4 is an identity since it's always true for all x; in contrast, x−5=10 is an equation only true when x=15.",
+            "An economic model example includes Y=C+I and C=a+bY, where Ī, a, and b are parameters and Y, C are variables; solving gives Y=(a+Ī)/(1−b), showing how variables depend on model parameters."
+        ]
+    },
+    {
+        id: 3,
+        title: "Lecture 3: Functions and Their Applications",
+        duration: "38 minutes",
+        keyPoints: [
+            "The concept of functions of one variable is covered, including how to define, classify (polynomial, logarithmic, exponential), and graph them, with emphasis on forms used in economics.",
+            "Exponential and logarithmic functions are emphasized due to their application in modeling growth, inflation, and compound interest, with examples such as calculating future value of investments.",
+            "Linear approximation is explained as a method to represent nonlinear functions using linear forms, a powerful technique used in simplifying economic models.",
+            "Students learn to recognize when functions are differentiable and how to interpret higher-order derivatives, which are crucial for understanding rates of change and marginal effects in economics."
+        ]
+    },
+    {
+        id: 4,
+        title: "Lecture 4: Calculus and Optimization",
+        duration: "50 minutes",
+        keyPoints: [
+            "Differentiation is taught in both single-variable and multivariable contexts, introducing partial derivatives which are extensively used in economic analysis involving multiple changing factors.",
+            "Optimization with single-variable functions is covered, focusing on finding maximum or minimum values, and introduces convex and concave functions with their geometric interpretations.",
+            "Applications of optimization are shown using economic examples such as maximizing utility or minimizing costs, demonstrating the real-world relevance of these mathematical techniques.",
+            "Integration is introduced with both definite and indefinite forms, along with substitution techniques, all aimed at calculating continuous quantities like area under curves.",
+            "Applications of integration are shown in economics for solving problems such as computing total cost, revenue, or consumer surplus under demand or supply curves."
+        ]
+    },
+    {
+        id: 5,
+        title: "Lecture 5: Advanced Topics & Real Number System",
+        duration: "44 minutes",
+        keyPoints: [
+            "Sequences and series are introduced, along with precise definitions of limits and the ideas of convergence and divergence, which lay the groundwork for calculus and economic forecasting.",
+            "Difference equations are introduced to model systems that evolve over discrete time, and first-order and higher-order forms are taught with applications to economic cycles.",
+            "Economic phenomena like booms, recessions, and recoveries are modeled using higher-order difference equations to explain business or trade cycles over time.",
+            "The real number system is developed from natural numbers to integers, then to rational numbers (e.g., 4, 1.25, 1/3), and then to irrational numbers like √2 and π, which fill the number line without gaps.",
+            "Real numbers include all rational and irrational numbers, can be expressed in decimal form (periodic or non-periodic), and are closed under basic operations except division by zero, which is undefined.",
+            "The course includes 30 lectures covering these 12 topics, each emphasizing properties, applications, and numerous economics-based examples to ensure clear connections between theory and use.",
+            "Three reference books are used: Mathematics for Economic Analysis (Pearson), Fundamental Methods of Mathematical Economics by Alpha C. Chiang, and Mathematics for Economists by Simon and Blume.",
+            "Historically, mathematics was used in economic transactions like trade accounting, taxation, and land revenue before the formal development of economics as a science.",
+            "Modern economics began in the late 18th century with classical economists like Adam Smith, and quickly evolved to include abstract ideas such as national wealth and economic systems.",
+            "As economics matured, algebra, calculus, and optimization became essential tools for modeling, especially as ideas became less about transactions and more about theories and relationships.",
+            "Mathematical models and statistical tools became critical in economics to formalize theories and interpret data, leading to the use of symbols, equations, and formal notation."
+        ]
+    }
+];
+
 // Quiz State
 let currentQuiz = {
     questions: [],
@@ -99,6 +168,9 @@ let currentQuiz = {
     endTime: null,
     score: 0
 };
+
+// Current week state
+let currentWeek = 1;
 
 // Screen Management
 function showScreen(screenId) {
@@ -115,6 +187,10 @@ function showWeekSelection() {
     showScreen('weekSelection');
 }
 
+function showWeekDetail() {
+    showScreen('weekDetailScreen');
+}
+
 function showQuiz() {
     showScreen('quizScreen');
 }
@@ -127,12 +203,76 @@ function showReview() {
     showScreen('reviewScreen');
 }
 
+// Tab Management
+function switchTab(tabName) {
+    // Remove active class from all tab buttons and panes
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+    
+    // Add active class to selected tab button and pane
+    document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+    document.getElementById(`${tabName}Tab`).classList.add('active');
+    
+    // Load content based on tab
+    if (tabName === 'notes') {
+        loadVideoNotes(currentWeek);
+    }
+}
+
 // Week Selection
 function selectWeek(weekNumber) {
     if (weekNumber === 1) {
-        startQuiz(weekNumber);
+        currentWeek = weekNumber;
+        updateWeekDetailScreen(weekNumber);
+        showWeekDetail();
     } else {
         alert('Coming soon! Only Week 1 is currently available.');
+    }
+}
+
+// Update Week Detail Screen
+function updateWeekDetailScreen(weekNumber) {
+    document.getElementById('weekDetailTitle').textContent = `Week ${weekNumber}: Mathematics for Economics`;
+    document.getElementById('weekDetailDescription').textContent = 'Practice questions and video transcriptions';
+    
+    // Reset to practice tab
+    switchTab('practice');
+}
+
+// Start Practice Quiz
+function startPracticeQuiz(weekNumber) {
+    startQuiz(weekNumber);
+}
+
+// Load Video Notes
+function loadVideoNotes(weekNumber) {
+    const notesList = document.getElementById('videoNotesList');
+    
+    if (weekNumber === 1) {
+        notesList.innerHTML = week1VideoNotes.map(note => `
+            <div class="video-note-card">
+                <div class="note-header">
+                    <div class="note-title">
+                        <i class="fas fa-play-circle"></i>
+                        <h4>${note.title}</h4>
+                    </div>
+                    <div class="note-meta">
+                        <span class="duration">
+                            <i class="fas fa-clock"></i>
+                            ${note.duration}
+                        </span>
+                    </div>
+                </div>
+                <div class="note-content">
+                    <h5><i class="fas fa-lightbulb"></i> Key Points:</h5>
+                    <ul class="key-points-list">
+                        ${note.keyPoints.map(point => `<li>${point}</li>`).join('')}
+                    </ul>
+                </div>
+            </div>
+        `).join('');
+    } else {
+        notesList.innerHTML = '<div class="coming-soon-message">Video notes for this week will be available soon!</div>';
     }
 }
 

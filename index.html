@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NPTEL Practice Questions</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-graduation-cap"></i> NPTEL Practice</h1>
+                <p>Master your concepts with interactive practice sessions</p>
+            </div>
+        </header>
+
+        <!-- Week Selection Screen -->
+        <div id="weekSelection" class="screen active">
+            <div class="week-selector">
+                <h2>Select Week</h2>
+                <div class="weeks-grid">
+                    <div class="week-card available" onclick="selectWeek(1)">
+                        <div class="week-number">1</div>
+                        <div class="week-title">Week 1</div>
+                        <div class="week-status">8 Questions Available</div>
+                    </div>
+                    
+                    <!-- Weeks 2-12 (Coming Soon) -->
+                    <div class="week-card coming-soon">
+                        <div class="week-number">2</div>
+                        <div class="week-title">Week 2</div>
+                        <div class="week-status">Coming Soon</div>
+                    </div>
+                    
+                    <div class="week-card coming-soon">
+                        <div class="week-number">3</div>
+                        <div class="week-title">Week 3</div>
+                        <div class="week-status">Coming Soon</div>
+                    </div>
+                    
+                    <div class="week-card coming-soon">
+                        <div class="week-number">4</div>
+                        <div class="week-title">Week 4</div>
+                        <div class="week-status">Coming Soon</div>
+                    </div>
+                    
+                    <div class="week-card coming-soon">
+                        <div class="week-number">5</div>
+                        <div class="week-title">Week 5</div>
+                        <div class="week-status">Coming Soon</div>
+                    </div>
+                    
+                    <div class="week-card coming-soon">
+                        <div class="week-number">6</div>
+                        <div class="week-title">Week 6</div>
+                        <div class="week-status">Coming Soon</div>
+                    </div>
+                    
+                    <div class="week-card coming-soon">
+                        <div class="week-number">7</div>
+                        <div class="week-title">Week 7</div>
+                        <div class="week-status">Coming Soon</div>
+                    </div>
+                    
+                    <div class="week-card coming-soon">
+                        <div class="week-number">8</div>
+                        <div class="week-title">Week 8</div>
+                        <div class="week-status">Coming Soon</div>
+                    </div>
+                    
+                    <div class="week-card coming-soon">
+                        <div class="week-number">9</div>
+                        <div class="week-title">Week 9</div>
+                        <div class="week-status">Coming Soon</div>
+                    </div>
+                    
+                    <div class="week-card coming-soon">
+                        <div class="week-number">10</div>
+                        <div class="week-title">Week 10</div>
+                        <div class="week-status">Coming Soon</div>
+                    </div>
+                    
+                    <div class="week-card coming-soon">
+                        <div class="week-number">11</div>
+                        <div class="week-title">Week 11</div>
+                        <div class="week-status">Coming Soon</div>
+                    </div>
+                    
+                    <div class="week-card coming-soon">
+                        <div class="week-number">12</div>
+                        <div class="week-title">Week 12</div>
+                        <div class="week-status">Coming Soon</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quizScreen" class="screen">
+            <div class="quiz-container">
+                <div class="quiz-header">
+                    <div class="quiz-info">
+                        <h2 id="quizTitle">Week 1: Assignment 1</h2>
+                        <div class="progress-info">
+                            <span id="currentQuestion">1</span> of <span id="totalQuestions">8</span>
+                        </div>
+                    </div>
+                    <div class="quiz-controls">
+                        <button class="btn btn-secondary" onclick="showWeekSelection()">
+                            <i class="fas fa-arrow-left"></i> Back to Weeks
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                
+                <div class="question-container">
+                    <div class="question-header">
+                        <span class="question-number">Question <span id="questionNumber">1</span></span>
+                        <span class="question-points">1 point</span>
+                    </div>
+                    
+                    <div class="question-text" id="questionText">
+                        <!-- Question will be loaded here -->
+                    </div>
+                    
+                    <div class="options-container" id="optionsContainer">
+                        <!-- Options will be loaded here -->
+                    </div>
+                </div>
+                
+                <div class="navigation-controls">
+                    <button class="btn btn-secondary" id="prevBtn" onclick="previousQuestion()" disabled>
+                        <i class="fas fa-chevron-left"></i> Previous
+                    </button>
+                    
+                    <div class="shuffle-controls">
+                        <button class="btn btn-outline" onclick="shuffleQuestions()">
+                            <i class="fas fa-random"></i> Shuffle Questions
+                        </button>
+                        <button class="btn btn-outline" onclick="shuffleCurrentOptions()">
+                            <i class="fas fa-shuffle"></i> Shuffle Options
+                        </button>
+                    </div>
+                    
+                    <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()">
+                        Next <i class="fas fa-chevron-right"></i>
+                    </button>
+                    
+                    <button class="btn btn-success" id="submitBtn" onclick="submitQuiz()" style="display: none;">
+                        <i class="fas fa-check"></i> Submit Quiz
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="resultsScreen" class="screen">
+            <div class="results-container">
+                <div class="results-header">
+                    <i class="fas fa-trophy results-icon"></i>
+                    <h2>Quiz Completed!</h2>
+                </div>
+                
+                <div class="score-display">
+                    <div class="score-circle">
+                        <div class="score-number" id="scoreNumber">0</div>
+                        <div class="score-total">/ <span id="scoreTotalQuestions">8</span></div>
+                    </div>
+                    <div class="score-percentage" id="scorePercentage">0%</div>
+                </div>
+                
+                <div class="results-details">
+                    <div class="result-item">
+                        <i class="fas fa-check-circle correct"></i>
+                        <span>Correct Answers: <span id="correctCount">0</span></span>
+                    </div>
+                    <div class="result-item">
+                        <i class="fas fa-times-circle incorrect"></i>
+                        <span>Incorrect Answers: <span id="incorrectCount">0</span></span>
+                    </div>
+                    <div class="result-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Time Taken: <span id="timeTaken">0:00</span></span>
+                    </div>
+                </div>
+                
+                <div class="results-actions">
+                    <button class="btn btn-primary" onclick="retryQuiz()">
+                        <i class="fas fa-redo"></i> Retry Quiz
+                    </button>
+                    <button class="btn btn-secondary" onclick="showWeekSelection()">
+                        <i class="fas fa-home"></i> Back to Weeks
+                    </button>
+                    <button class="btn btn-outline" onclick="reviewAnswers()">
+                        <i class="fas fa-eye"></i> Review Answers
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Review Screen -->
+        <div id="reviewScreen" class="screen">
+            <div class="review-container">
+                <div class="review-header">
+                    <h2><i class="fas fa-eye"></i> Answer Review</h2>
+                    <button class="btn btn-secondary" onclick="showResults()">
+                        <i class="fas fa-arrow-left"></i> Back to Results
+                    </button>
+                </div>
+                
+                <div id="reviewContent">
+                    <!-- Review content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

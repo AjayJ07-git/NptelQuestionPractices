@@ -140,6 +140,20 @@ function selectWeek(weekNumber) {
 function startQuiz(weekNumber) {
     // Initialize quiz data
     currentQuiz.questions = [...week1Questions];
+    
+    // Automatically shuffle questions
+    currentQuiz.questions = shuffleArray(currentQuiz.questions);
+    
+    // Shuffle options for each question and update correct answer indices
+    currentQuiz.questions.forEach(question => {
+        const optionIndexes = Array.from({length: question.options.length}, (_, i) => i);
+        const shuffledIndexes = shuffleArray(optionIndexes);
+        
+        // Create new options array and update correct answer
+        question.options = shuffledIndexes.map(index => question.options[index]);
+        question.correctAnswer = shuffledIndexes.indexOf(question.correctAnswer);
+    });
+    
     currentQuiz.currentQuestionIndex = 0;
     currentQuiz.userAnswers = new Array(currentQuiz.questions.length).fill(-1);
     currentQuiz.startTime = new Date();
@@ -153,6 +167,9 @@ function startQuiz(weekNumber) {
     // Show quiz screen and load first question
     showQuiz();
     loadQuestion();
+    
+    // Show notification about automatic shuffling
+    showNotification('Questions and options automatically shuffled for practice!', 'success');
 }
 
 function loadQuestion() {
@@ -253,53 +270,7 @@ function shuffleArray(array) {
     return newArray;
 }
 
-function shuffleQuestions() {
-    if (confirm('This will shuffle all questions and reset your progress. Are you sure?')) {
-        // Create mapping of old to new positions
-        const shuffledQuestions = shuffleArray(currentQuiz.questions);
-        
-        // Reset quiz state
-        currentQuiz.questions = shuffledQuestions;
-        currentQuiz.currentQuestionIndex = 0;
-        currentQuiz.userAnswers = new Array(currentQuiz.questions.length).fill(-1);
-        
-        // Reload current question
-        loadQuestion();
-        
-        // Show notification
-        showNotification('Questions shuffled successfully!', 'success');
-    }
-}
 
-function shuffleCurrentOptions() {
-    const currentQuestion = currentQuiz.questions[currentQuiz.currentQuestionIndex];
-    const currentAnswer = currentQuiz.userAnswers[currentQuiz.currentQuestionIndex];
-    
-    // Create mapping for shuffled options
-    const optionIndexes = Array.from({length: currentQuestion.options.length}, (_, i) => i);
-    const shuffledIndexes = shuffleArray(optionIndexes);
-    
-    // Create new options array and update correct answer
-    const newOptions = shuffledIndexes.map(index => currentQuestion.options[index]);
-    const newCorrectAnswer = shuffledIndexes.indexOf(currentQuestion.correctAnswer);
-    
-    // Update current user answer if one was selected
-    let newUserAnswer = -1;
-    if (currentAnswer !== -1) {
-        newUserAnswer = shuffledIndexes.indexOf(currentAnswer);
-    }
-    
-    // Update question data
-    currentQuestion.options = newOptions;
-    currentQuestion.correctAnswer = newCorrectAnswer;
-    currentQuiz.userAnswers[currentQuiz.currentQuestionIndex] = newUserAnswer;
-    
-    // Reload question
-    loadQuestion();
-    
-    // Show notification
-    showNotification('Options shuffled successfully!', 'success');
-}
 
 // Submit and Results
 function submitQuiz() {
@@ -427,7 +398,7 @@ function generateReviewContent() {
 
 // Retry Quiz
 function retryQuiz() {
-    if (confirm('This will restart the quiz and clear all your answers. Are you sure?')) {
+    if (confirm('This will restart the quiz with new shuffled questions and options. Are you sure?')) {
         startQuiz(1);
     }
 }

@@ -11,10 +11,11 @@ A modern, interactive web application for practicing NPTEL course questions with
 - **Score Calculation**: Instant scoring with percentage calculation
 - **Time Tracking**: Automatic time recording for quiz sessions
 
-### 🔀 Shuffling Features
-- **Question Shuffling**: Randomize the order of all questions
-- **Option Shuffling**: Randomize options within individual questions
+### 🔀 Automatic Shuffling
+- **Auto Question Shuffling**: Questions are automatically randomized each time you start a quiz
+- **Auto Option Shuffling**: Options within each question are automatically randomized
 - **Smart Answer Tracking**: Maintains correct answers even after shuffling
+- **Fresh Practice**: Every quiz attempt provides a unique question and option order
 
 ### 📊 Results & Review
 - **Animated Score Display**: Beautiful score animation on completion
@@ -31,10 +32,10 @@ A modern, interactive web application for practicing NPTEL course questions with
   - Number keys (1-4) for selecting options
 - **Responsive Design**: Works perfectly on desktop, tablet, and mobile
 - **Smooth Animations**: Fade-in effects and hover animations
-- **Toast Notifications**: Success messages for shuffling operations
+- **Toast Notifications**: Success messages and automatic shuffle notifications
 
 ### 🔧 Additional Features
-- **Retry Functionality**: Start over with the same or shuffled questions
+- **Retry Functionality**: Start over with newly shuffled questions and options
 - **Back Navigation**: Easy return to week selection
 - **Confirmation Dialogs**: Prevents accidental actions
 - **Auto-save Ready**: Infrastructure for saving progress (can be enabled)
@@ -69,10 +70,10 @@ A modern, interactive web application for practicing NPTEL course questions with
 
 1. **Clone or Download** the repository
 2. **Open `index.html`** in any modern web browser
-3. **Select Week 1** to start practicing
+3. **Select Week 1** to start practicing (questions and options auto-shuffle)
 4. **Navigate** through questions using buttons or keyboard shortcuts
-5. **Use shuffle features** to randomize your practice session
-6. **Submit** when ready and review your performance
+5. **Submit** when ready and review your performance
+6. **Retry** for a new randomized practice session
 
 ## File Structure
 

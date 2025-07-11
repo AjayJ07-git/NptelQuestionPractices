@@ -20,7 +20,7 @@ const week1Questions = [
             "x is the square root of a prime number",
             "None of these."
         ],
-        correctAnswer: 2
+        correctAnswer: 0
     },
     {
         id: 3,
@@ -53,7 +53,7 @@ const week1Questions = [
             "xy = 0 → x = 0 or y = 0",
             "None of these"
         ],
-        correctAnswer: 1
+        correctAnswer: 2
     },
     {
         id: 6,
